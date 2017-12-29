@@ -1,6 +1,6 @@
 {
-  "name": "Inshorts Tribute",
-  "version": "1.0",
+  "name": "Inshorts-Tribute",
+  "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "clean": "rimraf dist",
@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/davezuko/react-redux-starter-kit.git"
+    "url": "git+https://github.com/sadathanwar17/Inshorts-Tribute"
   },
   "author": "Anwar Sadath",
   "dependencies": {
