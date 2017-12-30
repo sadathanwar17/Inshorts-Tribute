@@ -1,17 +1,17 @@
-export default function(state = [], action) {
+export default function reducer(state, action) {
   switch(action.type) {
     case "LIKE":
-      return state.map(news => {
-        (news.id === action.id) ? {...state, liked: !news.liked} : news
-      });
+      return state.map(news =>
+        (news.id === action.id) ? {...news, liked: !news.liked} : news
+      );
     case "DISLIKE":
-      return state.map(news => {
-        (news.id === action.id) ? {...state, disliked: !news.disliked} : news
-      });
+      return state.map(news =>
+        (news.id === action.id) ? {...news, disliked: !news.disliked} : news
+      );
     case "BOOKMARK":
-      return state.map(news => {
-        (news.id === action.id) ? {...state, bookmarked: !news.bookmarked} : news
-      });
+      return state.map(news =>
+        (news.id === action.id) ? {...news, bookmarked: !news.bookmarked} : news
+      );
     default:
       return state;
   }

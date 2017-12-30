@@ -1,5 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import reducer from './reducer';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
 
 const dummyData = [
   {
@@ -65,9 +68,7 @@ const div_padding = {
 }
 
 class NewsComponent extends React.Component {
-  constructor(props) {
-    super(props)
-  }
+
   render() {
     return (
       <div style={display_horizontal}>
@@ -78,9 +79,18 @@ class NewsComponent extends React.Component {
           <h4> { this.props.title } </h4>
           <p> { this.props.description } </p>
           <div style={display_vertical}>
-            <button onClick={() => console.log("clicked like button",this.props.id)}>Like</button>
-            <button onClick={() => console.log("clicked dislike button",this.props.id)}>Dislike</button>
-            <button onClick={() => console.log("clicked bookmark button",this.props.id)}>Bookmark</button>
+            <button onClick={() => store.dispatch({
+              type: 'LIKE',
+              id: this.props.id
+            })}>Like</button>
+            <button onClick={() => store.dispatch({
+              type: 'DISLIKE',
+              id: this.props.id
+            })}>Dislike</button>
+            <button onClick={() => store.dispatch({
+              type: 'BOOKMARK',
+              id: this.props.id
+            })}>Bookmark</button>
           </div>
         </div>
       </div>
@@ -88,15 +98,26 @@ class NewsComponent extends React.Component {
   }
 }
 
-const NewsList = dummyData.map((d) => (
-  <NewsComponent
-    id = { d.id }
-    title = { d.title }
-    description = { d.description }
-    imageUrl = {d.imageUrl } />
-))
+const NewsList = () => (
+  <ul>
+  {
+    dummyData.map((d) => (
+      <NewsComponent
+        key = { d.id }
+        id = { d.id }
+        title = { d.title }
+        description = { d.description }
+        imageUrl = {d.imageUrl } />
+      ))
+    }
+    </ul>
+)
 
+const store = createStore(reducer, dummyData);
+store.subscribe(NewsList)
 ReactDOM.render(
-  <ul> {NewsList} </ul>,
+  <Provider store={store}>
+    <NewsList />
+  </Provider>,
   document.getElementById('root')
 );
