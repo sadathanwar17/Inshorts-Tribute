@@ -67,7 +67,16 @@ const div_padding = {
   padding: "10px"
 }
 
+const disabled = {
+  border: "1px solid #999999",
+  backgroundColor: "#cccccc",
+  color: "#666666"
+}
+
 class NewsComponent extends React.Component {
+  constructor(props) {
+    super(props);
+  }
 
   render() {
     return (
@@ -79,18 +88,36 @@ class NewsComponent extends React.Component {
           <h4> { this.props.title } </h4>
           <p> { this.props.description } </p>
           <div style={display_vertical}>
-            <button onClick={() => store.dispatch({
-              type: 'LIKE',
-              id: this.props.id
-            })}>Like</button>
-            <button onClick={() => store.dispatch({
-              type: 'DISLIKE',
-              id: this.props.id
-            })}>Dislike</button>
-            <button onClick={() => store.dispatch({
-              type: 'BOOKMARK',
-              id: this.props.id
-            })}>Bookmark</button>
+            {
+              (!this.props.liked) ?
+                <button onClick={() => store.dispatch({
+                  type: 'LIKE',
+                  id: this.props.id
+                })}>Like</button>
+              :
+              <button style={disabled} disabled>Like</button>
+            }
+            {
+              (!this.props.disliked) ?
+                <button onClick={() => store.dispatch({
+                  type: 'DISLIKE',
+                  id: this.props.id
+                })}>Dislike</button>
+              :
+                <button style={disabled} disabled>Dislike</button>
+              }
+              {
+                (!this.props.bookmark) ?
+                  <button onClick={() => store.dispatch({
+                    type: 'BOOKMARK',
+                    id: this.props.id
+                  })}>Bookmark</button>
+                :
+                  <button onClick={() => store.dispatch({
+                    type: 'REMOVE BOOKMARK',
+                    id: this.props.id
+                  })}>Remove Bookmark</button>
+                }
           </div>
         </div>
       </div>
@@ -98,26 +125,30 @@ class NewsComponent extends React.Component {
   }
 }
 
-const NewsList = () => (
+const NewsList = ({data}) => (
   <ul>
   {
-    dummyData.map((d) => (
+    data.map(d =>
       <NewsComponent
         key = { d.id }
         id = { d.id }
         title = { d.title }
+        liked = { d.liked }
+        disliked = { d.disliked }
+        bookmark = { d.bookmarked }
         description = { d.description }
-        imageUrl = {d.imageUrl } />
-      ))
+        imageUrl = { d.imageUrl } />
+      )
     }
     </ul>
 )
 
 const store = createStore(reducer, dummyData);
-store.subscribe(NewsList)
-ReactDOM.render(
-  <Provider store={store}>
-    <NewsList />
-  </Provider>,
-  document.getElementById('root')
-);
+const render = () => {
+  ReactDOM.render(
+    <NewsList data={store.getState()}/>,
+    document.getElementById('root')
+  );
+}
+store.subscribe(render)
+render()
