@@ -49,6 +49,9 @@ if (project.env === 'development') {
       res.end()
     })
   })
+  app.get('/*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'))
+  })
 } else {
   logger.warn(
     'Server is being run outside of live development mode, meaning it will ' +

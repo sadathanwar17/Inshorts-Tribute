@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import reducer from './reducer';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
+import { BrowserRouter as Router, Route, NavLink, Switch } from 'react-router-dom';
 
 const dummyData = [
   {
@@ -70,7 +71,17 @@ const div_padding = {
 const disabled = {
   border: "1px solid #999999",
   backgroundColor: "#cccccc",
-  color: "#666666"
+  color: "#666666",
+  marginRight: "30px"
+}
+
+const disableDecoration = {
+  textDecoration: "none",
+  color: "#000000"
+}
+
+const buttonSpacing = {
+  marginRight: "30px"
 }
 
 class NewsComponent extends React.Component {
@@ -81,19 +92,23 @@ class NewsComponent extends React.Component {
   render() {
     return (
       <div style={display_horizontal}>
-        <div style={div_padding}>
-          <img src={ this.props.imageUrl } width="350px" height="250px" style={image_styles}/>
-        </div>
+        <a href="#">
+          <div style={div_padding}>
+            <img src={ this.props.imageUrl } width="350px" height="250px" style={image_styles}/>
+          </div>
+        </a>
         <div style={display_vertical}>
-          <h4> { this.props.title } </h4>
-          <p> { this.props.description } </p>
+          <NavLink to={"/" + this.props.id} activeStyle={disableDecoration} style={disableDecoration}>
+            <h4> { this.props.title } </h4>
+            <p> { this.props.description } </p>
+          </NavLink>
           <div style={display_vertical}>
             {
               (!this.props.liked) ?
                 <button onClick={() => store.dispatch({
                   type: 'LIKE',
                   id: this.props.id
-                })}>Like</button>
+                })} style={buttonSpacing}>Like</button>
               :
               <button style={disabled} disabled>Like</button>
             }
@@ -102,7 +117,7 @@ class NewsComponent extends React.Component {
                 <button onClick={() => store.dispatch({
                   type: 'DISLIKE',
                   id: this.props.id
-                })}>Dislike</button>
+                })} style={buttonSpacing}>Dislike</button>
               :
                 <button style={disabled} disabled>Dislike</button>
               }
@@ -111,7 +126,7 @@ class NewsComponent extends React.Component {
                   <button onClick={() => store.dispatch({
                     type: 'BOOKMARK',
                     id: this.props.id
-                  })}>Bookmark</button>
+                  })} style={buttonSpacing}>Bookmark</button>
                 :
                   <button onClick={() => store.dispatch({
                     type: 'REMOVE BOOKMARK',
@@ -125,10 +140,10 @@ class NewsComponent extends React.Component {
   }
 }
 
-const NewsList = ({data}) => (
+const NewsList = () => (
   <ul>
   {
-    data.map(d =>
+    store.getState().map(d =>
       <NewsComponent
         key = { d.id }
         id = { d.id }
@@ -143,10 +158,38 @@ const NewsList = ({data}) => (
     </ul>
 )
 
+const NewsDetail = ({ match }) => {
+  let state = store.getState()[match.params.newsId]
+  return (
+    <div>
+      <NewsComponent
+        key = { state.id }
+        id = { state.id }
+        title = { state.title }
+        liked = { state.liked }
+        disliked = { state.disliked }
+        bookmark = { state.bookmarked }
+        description = { state.description }
+        imageUrl = { state.imageUrl } />
+      </div>
+  )
+}
+
+const Root = ({ store }) => (
+  <Provider store={store}>
+    <Router>
+      <Switch>
+        <Route exact path="/" component={NewsList} />
+        <Route path="/:newsId" component={NewsDetail} />
+      </Switch>
+    </Router>
+  </Provider>
+)
+
 const store = createStore(reducer, dummyData);
 const render = () => {
   ReactDOM.render(
-    <NewsList data={store.getState()}/>,
+    <Root store={store}/>,
     document.getElementById('root')
   );
 }
