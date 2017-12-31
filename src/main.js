@@ -13,34 +13,34 @@ const dummyData = [
     liked: false,
     disliked: false,
     bookmarked: false,
-    description: "McDonald's India has warned its customers about 'serious compliance risks' at its outlets run by Connaught Plaza Restaurants (CPRL) in north and east India. It said these restaurants needed to close down, since they aren't in line with its global standards pertaining to supplies and operations. This comes after CPRL got a new logistics partner and started reopening closed restaurants."
+    description: "McDonald's India has warned its customers about 'serious compliance risks' at its outlets run by Connaught Plaza Restaurants (CPRL) in north and east India. It said these restaurants needed to close down, since they aren't in line with its global standards pertaining to supplies and operations. This comes after CPRL got a new logistics partner and started reopening closed restaurants.McDonald's India has warned its customers about 'serious compliance risks' at its outlets run by Connaught Plaza Restaurants (CPRL) in north and east India. "
   },
   {
     id: 1,
-    imageUrl: "http://images.newsinshorts.com.edgesuite.net/app_assets/images/2017/29dec/inshorts_image_1514544852599_749.jpg?resize=400px:*",
-    title: "Eating at our east, north India outlets not safe: McDonald's",
+    imageUrl: "http://images.newsinshorts.com.edgesuite.net/app_assets/images/2017/31dec/inshorts_image_1514692479222_134.jpg?resize=400px:*",
+    title: "Rajinikanth announces entry into politics with new party ",
     liked: false,
     disliked: false,
     bookmarked: false,
-    description: "McDonald's India has warned its customers about 'serious compliance risks' at its outlets run by Connaught Plaza Restaurants (CPRL) in north and east India. It said these restaurants needed to close down, since they aren't in line with its global standards pertaining to supplies and operations. This comes after CPRL got a new logistics partner and started reopening closed restaurants."
+    description: "Announcing his decision to enter politics, actor Rajinikanth on Sunday said he will form a new party to contest the next Tamil Nadu Assembly elections from all constituencies. Claiming that other states make fun of Tamil Nadu, Rajinikanth said he would feel guilty if he did not take this decision. Politicians are robbing us on our own land, he added."
   },
   {
     id: 2,
-    imageUrl: "http://images.newsinshorts.com.edgesuite.net/app_assets/images/2017/29dec/inshorts_image_1514544852599_749.jpg?resize=400px:*",
-    title: "Eating at our east, north India outlets not safe: McDonald's",
+    imageUrl: "http://images.newsinshorts.com.edgesuite.net/app_assets/images/2017/31dec/inshorts_image_1514700990483_918.jpg?resize=400px:*",
+    title: "World's 1st robot citizen visits IIT Bombay wearing sari ",
     liked: false,
     disliked: false,
     bookmarked: false,
-    description: "McDonald's India has warned its customers about 'serious compliance risks' at its outlets run by Connaught Plaza Restaurants (CPRL) in north and east India. It said these restaurants needed to close down, since they aren't in line with its global standards pertaining to supplies and operations. This comes after CPRL got a new logistics partner and started reopening closed restaurants."
+    description: "Sophia, the world's first robot to be granted citizenship, made its first appearance in India during an annual festival at IIT-Bombay on Saturday. The humanoid robot, which was draped in a sari, had a 15-minute conversation with a student and greeted the audience with a 'Namaste'. Sophia talked about India's global stand as an economic, scientific and technological superpower."
   },
   {
     id: 3,
-    imageUrl: "http://images.newsinshorts.com.edgesuite.net/app_assets/images/2017/29dec/inshorts_image_1514544852599_749.jpg?resize=400px:*",
-    title: "Eating at our east, north India outlets not safe: McDonald's",
+    imageUrl: "http://images.newsinshorts.com.edgesuite.net/app_assets/images/2017/30dec/inshorts_image_1514612335174_659.jpg?resize=400px:*",
+    title: "What were the major scientific discoveries, events of 2017?",
     liked: false,
     disliked: false,
     bookmarked: false,
-    description: "McDonald's India has warned its customers about 'serious compliance risks' at its outlets run by Connaught Plaza Restaurants (CPRL) in north and east India. It said these restaurants needed to close down, since they aren't in line with its global standards pertaining to supplies and operations. This comes after CPRL got a new logistics partner and started reopening closed restaurants."
+    description: "The discovery of gold's origin in the universe was hailed by many as 'scientific breakthrough' of the year. NASA's $3.9-billion Cassini became the first man-made object to go between Saturn and its rings, while astronomers detected the first interstellar object visiting our solar system. Further, scientists discovered a new organ inside the human body and also identified the appendix's function."
   }
 ];
 
@@ -87,6 +87,14 @@ const buttonSpacing = {
 class NewsComponent extends React.Component {
   constructor(props) {
     super(props);
+    var description;
+    if(this.props.description.length > 256) {
+      var ending = " ...";
+      this.description = this.props.description.substring(0, 256 - ending.length) + ending;
+    }
+    else {
+      this.description = this.props.description;
+    }
   }
 
   render() {
@@ -100,7 +108,7 @@ class NewsComponent extends React.Component {
         <div style={display_vertical}>
           <NavLink to={"/" + this.props.id} activeStyle={disableDecoration} style={disableDecoration}>
             <h4> { this.props.title } </h4>
-            <p> { this.props.description } </p>
+            <p> { this.description } </p>
           </NavLink>
           <div style={display_vertical}>
             {
