@@ -1,5 +1,4 @@
 function flip(news, action, choice) {
-  console.log(news, action)
   if(news.id === action.id) {
     if(news.liked === false && news.disliked === false) {
       if(choice === "liked") {

@@ -8,7 +8,7 @@ import { BrowserRouter as Router, Route, NavLink, Switch } from 'react-router-do
 const dummyData = [
   {
     id: 0,
-    imageUrl: "http://images.newsinshorts.com.edgesuite.net/app_assets/images/2017/29dec/inshorts_image_1514544852599_749.jpg?resize=400px:*",
+    imageUrl: "http://images.newsinshorts.com.edgesuite.net/app_assets/images/2017/29dec/inshorts_image_1514544852599_749.jpg?resize=",
     title: "Eating at our east, north India outlets not safe: McDonald's",
     liked: false,
     disliked: false,
@@ -17,7 +17,7 @@ const dummyData = [
   },
   {
     id: 1,
-    imageUrl: "http://images.newsinshorts.com.edgesuite.net/app_assets/images/2017/31dec/inshorts_image_1514692479222_134.jpg?resize=400px:*",
+    imageUrl: "http://images.newsinshorts.com.edgesuite.net/app_assets/images/2017/31dec/inshorts_image_1514692479222_134.jpg?resize=",
     title: "Rajinikanth announces entry into politics with new party ",
     liked: false,
     disliked: false,
@@ -26,7 +26,7 @@ const dummyData = [
   },
   {
     id: 2,
-    imageUrl: "http://images.newsinshorts.com.edgesuite.net/app_assets/images/2017/31dec/inshorts_image_1514700990483_918.jpg?resize=400px:*",
+    imageUrl: "http://images.newsinshorts.com.edgesuite.net/app_assets/images/2017/31dec/inshorts_image_1514700990483_918.jpg?resize=",
     title: "World's 1st robot citizen visits IIT Bombay wearing sari ",
     liked: false,
     disliked: false,
@@ -35,7 +35,7 @@ const dummyData = [
   },
   {
     id: 3,
-    imageUrl: "http://images.newsinshorts.com.edgesuite.net/app_assets/images/2017/30dec/inshorts_image_1514612335174_659.jpg?resize=400px:*",
+    imageUrl: "http://images.newsinshorts.com.edgesuite.net/app_assets/images/2017/30dec/inshorts_image_1514612335174_659.jpg?resize=",
     title: "What were the major scientific discoveries, events of 2017?",
     liked: false,
     disliked: false,
@@ -95,6 +95,7 @@ class NewsComponent extends React.Component {
     else {
       this.description = this.props.description;
     }
+    this.imageUrl = this.props.imageUrl + "400px";
   }
 
   render() {
@@ -102,7 +103,7 @@ class NewsComponent extends React.Component {
       <div style={display_horizontal}>
         <a href="#">
           <div style={div_padding}>
-            <img src={ this.props.imageUrl } width="350px" height="250px" style={image_styles}/>
+            <img src={ this.imageUrl } width="350px" height="250px" style={image_styles}/>
           </div>
         </a>
         <div style={display_vertical}>
@@ -168,18 +169,25 @@ const NewsList = () => (
 
 const NewsDetail = ({ match }) => {
   let state = store.getState()[match.params.newsId]
+  var imageUrl = state.imageUrl + "540px";
   return (
-    <div>
-      <NewsComponent
-        key = { state.id }
-        id = { state.id }
-        title = { state.title }
-        liked = { state.liked }
-        disliked = { state.disliked }
-        bookmark = { state.bookmarked }
-        description = { state.description }
-        imageUrl = { state.imageUrl } />
+    <div style={{
+      padding: "0px 20px 20px 20px"
+    }}>
+      <h1 style={{
+        textAlign: "center"
+      }}>{ state.title }</h1>
+      <div>
+        <img src={imageUrl} style={{
+          display: "block",
+          margin: "0 auto"
+        }}/>
+        <p style={{
+          fontSize: "20px",
+          lineHeight: "32px"
+        }}> { state.description } </p>
       </div>
+    </div>
   )
 }
 
