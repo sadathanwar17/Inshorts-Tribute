@@ -1,0 +1,40 @@
+.divPadding {
+  padding: 0px 20px 20px 20px;
+}
+
+.h1Style {
+  text-Align: center;
+  margin-bottom: 0px;
+}
+
+.btnDivStyle {
+  display: inline;
+  width: 100%;
+  padding: 0 5% 0 5%;
+  position: fixed;
+}
+
+.authorStyle {
+  display: inline-block;
+  width: 70%;
+}
+
+.btnStyle {
+  display: inline-block;
+  margin: auto;
+  width: 20%;
+}
+
+.imgStyle {
+  display: block;
+  margin: 0 auto;
+}
+
+.descriptionStyle {
+  font-size: 20px;
+  line-height: 32px;
+}
+
+.divPad {
+  padding-top: 60px;
+}

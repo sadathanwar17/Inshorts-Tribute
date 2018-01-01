@@ -44,6 +44,7 @@ const config = {
       __TEST__,
       __PROD__,
     }, project.globals))
+    ,new ExtractTextPlugin('styles.css')
   ],
 }
 
@@ -88,53 +89,10 @@ config.module.rules.push({
   }],
 })
 
-// Styles
-// ------------------------------------
-const extractStyles = new ExtractTextPlugin({
-  filename: 'styles/[name].[contenthash].css',
-  allChunks: true,
-  disable: __DEV__,
-})
-
 config.module.rules.push({
-  test: /\.(sass|scss)$/,
-  loader: extractStyles.extract({
-    fallback: 'style-loader',
-    use: [
-      {
-        loader: 'css-loader',
-        options: {
-          sourceMap: project.sourcemaps,
-          minimize: {
-            autoprefixer: {
-              add: true,
-              remove: true,
-              browsers: ['last 2 versions'],
-            },
-            discardComments: {
-              removeAll : true,
-            },
-            discardUnused: false,
-            mergeIdents: false,
-            reduceIdents: false,
-            safe: true,
-            sourcemap: project.sourcemaps,
-          },
-        },
-      },
-      {
-        loader: 'sass-loader',
-        options: {
-          sourceMap: project.sourcemaps,
-          includePaths: [
-            inProjectSrc('styles'),
-          ],
-        },
-      }
-    ],
-  })
+  test: /\.css$/,
+  loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'})
 })
-config.plugins.push(extractStyles)
 
 // Images
 // ------------------------------------
