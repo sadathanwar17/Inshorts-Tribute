@@ -10,6 +10,7 @@ const dummyData = [
     id: 0,
     imageUrl: "http://images.newsinshorts.com.edgesuite.net/app_assets/images/2017/29dec/inshorts_image_1514544852599_749.jpg?resize=",
     title: "Eating at our east, north India outlets not safe: McDonald's",
+    author: "Rajesh Khanna",
     liked: false,
     disliked: false,
     bookmarked: false,
@@ -19,6 +20,7 @@ const dummyData = [
     id: 1,
     imageUrl: "http://images.newsinshorts.com.edgesuite.net/app_assets/images/2017/31dec/inshorts_image_1514692479222_134.jpg?resize=",
     title: "Rajinikanth announces entry into politics with new party ",
+    author: "Radhika Chugh",
     liked: false,
     disliked: false,
     bookmarked: false,
@@ -28,6 +30,7 @@ const dummyData = [
     id: 2,
     imageUrl: "http://images.newsinshorts.com.edgesuite.net/app_assets/images/2017/31dec/inshorts_image_1514700990483_918.jpg?resize=",
     title: "World's 1st robot citizen visits IIT Bombay wearing sari ",
+    author: "Shifa Naseer",
     liked: false,
     disliked: false,
     bookmarked: false,
@@ -37,6 +40,7 @@ const dummyData = [
     id: 3,
     imageUrl: "http://images.newsinshorts.com.edgesuite.net/app_assets/images/2017/30dec/inshorts_image_1514612335174_659.jpg?resize=",
     title: "What were the major scientific discoveries, events of 2017?",
+    author: "Gaurav Shroff",
     liked: false,
     disliked: false,
     bookmarked: false,
@@ -84,6 +88,72 @@ const buttonSpacing = {
   marginRight: "30px"
 }
 
+const Header = ({showArrow}) => (
+  <div style={{
+    boxShadow: "0 0 8px 0 rgba(0,0,0,0.2)",
+    transition: "0.3s",
+    paddingLeft: "20px",
+    width: "100%",
+    backgroundColor: "rebeccapurple",
+    color: "white"
+  }}>
+    {
+      showArrow==="true" ?
+        <NavLink to="/" activeStyle={disableDecoration}>
+          <i className="fa fa-arrow-left fa-3x" aria-hidden="true" style={{
+            color: "white",
+            position: "fixed",
+            paddingTop: "10px"
+          }}></i>
+        </NavLink>
+      : null
+    }
+    <h1 style={{
+      display: "inline-block",
+      textAlign: "center",
+      width: "100%"
+    }}>INSHORTS TRIBUTE</h1>
+  </div>
+)
+
+const Btns = (props) => (
+  <div style={{
+    display: "inline-block",
+    margin: "0 auto"
+  }}>
+    {
+      (!props.state.liked) ?
+        <button onClick={() => store.dispatch({
+          type: 'LIKE',
+          id: props.state.id
+        })}>Like</button>
+      :
+      <button disabled>Like</button>
+    }
+    {
+      (!props.state.disliked) ?
+        <button onClick={() => store.dispatch({
+          type: 'DISLIKE',
+          id: props.state.id
+        })}>Dislike</button>
+      :
+        <button disabled>Dislike</button>
+      }
+      {
+        (!props.state.bookmark) ?
+          <button onClick={() => store.dispatch({
+            type: 'BOOKMARK',
+            id: props.state.id
+          })}>Bookmark</button>
+        :
+          <button onClick={() => store.dispatch({
+            type: 'REMOVE BOOKMARK',
+            id: props.state.id
+          })}>Remove Bookmark</button>
+        }
+  </div>
+)
+
 class NewsComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -112,36 +182,43 @@ class NewsComponent extends React.Component {
             <p> { this.description } </p>
           </NavLink>
           <div style={display_vertical}>
-            {
-              (!this.props.liked) ?
-                <button onClick={() => store.dispatch({
-                  type: 'LIKE',
-                  id: this.props.id
-                })} style={buttonSpacing}>Like</button>
-              :
-              <button style={disabled} disabled>Like</button>
-            }
-            {
-              (!this.props.disliked) ?
-                <button onClick={() => store.dispatch({
-                  type: 'DISLIKE',
-                  id: this.props.id
-                })} style={buttonSpacing}>Dislike</button>
-              :
-                <button style={disabled} disabled>Dislike</button>
+            <div style={{
+              display: "block",
+              textAlign: "center",
+              margin: "auto",
+              paddingBottom: "15px"
+            }}>
+              {
+                (!this.props.liked) ?
+                  <button onClick={() => store.dispatch({
+                    type: 'LIKE',
+                    id: this.props.id
+                  })} style={buttonSpacing}>Like</button>
+                :
+                <button style={disabled} disabled>Like</button>
               }
               {
-                (!this.props.bookmark) ?
+                (!this.props.disliked) ?
                   <button onClick={() => store.dispatch({
-                    type: 'BOOKMARK',
+                    type: 'DISLIKE',
                     id: this.props.id
-                  })} style={buttonSpacing}>Bookmark</button>
+                  })} style={buttonSpacing}>Dislike</button>
                 :
-                  <button onClick={() => store.dispatch({
-                    type: 'REMOVE BOOKMARK',
-                    id: this.props.id
-                  })}>Remove Bookmark</button>
+                  <button style={disabled} disabled>Dislike</button>
                 }
+                {
+                  (!this.props.bookmark) ?
+                    <button onClick={() => store.dispatch({
+                      type: 'BOOKMARK',
+                      id: this.props.id
+                    })} style={buttonSpacing}>Bookmark</button>
+                  :
+                    <button onClick={() => store.dispatch({
+                      type: 'REMOVE BOOKMARK',
+                      id: this.props.id
+                    })}>Remove Bookmark</button>
+                  }
+              </div>
           </div>
         </div>
       </div>
@@ -150,42 +227,67 @@ class NewsComponent extends React.Component {
 }
 
 const NewsList = () => (
-  <ul>
-  {
-    store.getState().map(d =>
-      <NewsComponent
-        key = { d.id }
-        id = { d.id }
-        title = { d.title }
-        liked = { d.liked }
-        disliked = { d.disliked }
-        bookmark = { d.bookmarked }
-        description = { d.description }
-        imageUrl = { d.imageUrl } />
-      )
-    }
-    </ul>
+  <div>
+    <Header showArrow="false" />
+    <ul>
+    {
+      store.getState().map(d =>
+        <NewsComponent
+          key = { d.id }
+          id = { d.id }
+          title = { d.title }
+          liked = { d.liked }
+          disliked = { d.disliked }
+          bookmark = { d.bookmarked }
+          description = { d.description }
+          imageUrl = { d.imageUrl } />
+        )
+      }
+      </ul>
+    </div>
 )
 
 const NewsDetail = ({ match }) => {
   let state = store.getState()[match.params.newsId]
   var imageUrl = state.imageUrl + "540px";
   return (
-    <div style={{
-      padding: "0px 20px 20px 20px"
-    }}>
-      <h1 style={{
-        textAlign: "center"
-      }}>{ state.title }</h1>
-      <div>
-        <img src={imageUrl} style={{
-          display: "block",
-          margin: "0 auto"
-        }}/>
-        <p style={{
-          fontSize: "20px",
-          lineHeight: "32px"
-        }}> { state.description } </p>
+    <div>
+      <Header showArrow="true" />
+      <div style={{
+        padding: "0px 20px 20px 20px"
+      }}>
+        <h1 style={{
+          textAlign: "center",
+          marginBottom: "0px"
+        }}>{ state.title }</h1>
+        <div style={{
+          display: "inline",
+          width: "100%",
+          padding: "0 5% 0 5%",
+          position: "fixed"
+        }}>
+          <h4 style={{
+            display: "inline-block",
+            width: "70%"
+          }}>By: { state.author }</h4>
+          <Btns state={state} style={{
+            display: "inline-block",
+            margin: "auto",
+            width: "20%"
+          }}/>
+        </div>
+        <div style={{
+          paddingTop: "60px"
+        }}>
+          <img src={imageUrl} style={{
+            display: "block",
+            margin: "0 auto"
+          }}/>
+          <p style={{
+            fontSize: "20px",
+            lineHeight: "32px"
+          }}> { state.description } </p>
+        </div>
       </div>
     </div>
   )
