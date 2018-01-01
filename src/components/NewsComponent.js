@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import Btns from '../container/Btns';
 import styles from '../styles/NewsComponentStyle.css';
 
 class NewsComponent extends React.Component {
@@ -30,39 +31,8 @@ class NewsComponent extends React.Component {
             <p> { this.description } </p>
             </NavLink>
             <div className={styles.display_vertical}>
-              <div className={styles.btnStyling}>
-                {
-                  (!this.props.liked) ?
-                    <button onClick={() => store.dispatch({
-                    type: 'LIKE',
-                    id: this.props.id
-                  })} className={styles.buttonSpacing}>Like</button>
-                :
-                <button className={styles.disabled} disabled>Like</button>
-              }
-              {
-                (!this.props.disliked) ?
-                  <button onClick={() => store.dispatch({
-                    type: 'DISLIKE',
-                    id: this.props.id
-                  })} className={styles.buttonSpacing}>Dislike</button>
-                :
-                  <button className={styles.disabled} disabled>Dislike</button>
-                }
-                {
-                  (!this.props.bookmark) ?
-                    <button onClick={() => store.dispatch({
-                      type: 'BOOKMARK',
-                      id: this.props.id
-                    })} className={styles.buttonSpacing}>Bookmark</button>
-                  :
-                    <button onClick={() => store.dispatch({
-                      type: 'REMOVE BOOKMARK',
-                      id: this.props.id
-                    })} className={styles.bookmarkStyle}>Remove Bookmark</button>
-                  }
-              </div>
-          </div>
+              <Btns state={this.props} />
+            </div>
         </div>
       </div>
     )

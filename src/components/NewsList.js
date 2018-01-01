@@ -15,7 +15,7 @@ const NewsList = ({news}) => (
           title = { d.title }
           liked = { d.liked }
           disliked = { d.disliked }
-          bookmark = { d.bookmarked }
+          bookmarked = { d.bookmarked }
           description = { d.description }
           imageUrl = { d.imageUrl } />
         )

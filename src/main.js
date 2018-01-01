@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import reducer from './reducer';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router, Route, NavLink, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import NewsDetail from 'components/NewsDetail';
 import NewsList from 'components/NewsList';
 
@@ -62,13 +62,7 @@ const Root = ({ store }) => (
 )
 
 const store = createStore(reducer, dummyData);
-const render = () => {
-  ReactDOM.render(
-    <Root store={store}/>,
-    document.getElementById('root')
-  );
-}
-// store.subscribe(render)
-render()
-
-export default dummyData
+ReactDOM.render(
+  <Root store={store}/>,
+  document.getElementById('root')
+);

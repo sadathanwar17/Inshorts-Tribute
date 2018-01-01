@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Header from './Header';
-import Btns from './Btns';
+import Btns from '../container/Btns';
 import styles from '../styles/NewsDetailStyles.css';
 
 const NewsDetail = ({ match, data }) => {
@@ -14,7 +14,7 @@ const NewsDetail = ({ match, data }) => {
         <h1 className={styles.h1Style}>{ state.title }</h1>
         <div className={styles.btnDivStyle}>
           <h4 className={styles.authorStyle}>By: { state.author }</h4>
-          <Btns state={state} className={styles.btnStyle} />
+          <Btns state={state} />
         </div>
         <div className={styles.divPad}>
           <img src={imageUrl} className={styles.imgStyle} />
@@ -30,7 +30,6 @@ const mapStateToProps = (state) => {
       data: state
   }
 }
-
 
 export default connect(
   mapStateToProps
