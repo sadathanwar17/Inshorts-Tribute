@@ -76,7 +76,8 @@ const disabled = {
   border: "1px solid #999999",
   backgroundColor: "#cccccc",
   color: "#666666",
-  marginRight: "30px"
+  marginRight: "30px",
+  borderRadius: "10px"
 }
 
 const disableDecoration = {
@@ -85,7 +86,13 @@ const disableDecoration = {
 }
 
 const buttonSpacing = {
-  marginRight: "30px"
+  marginRight: "30px",
+  borderRadius: "10px"
+}
+
+const buttonStyling = {
+  margin: "5px",
+  borderRadius: "10px"
 }
 
 const Header = ({showArrow}) => (
@@ -126,30 +133,30 @@ const Btns = (props) => (
         <button onClick={() => store.dispatch({
           type: 'LIKE',
           id: props.state.id
-        })}>Like</button>
+        })} style={buttonStyling}>Like</button>
       :
-      <button disabled>Like</button>
+      <button disabled style={buttonStyling}>Like</button>
     }
     {
       (!props.state.disliked) ?
         <button onClick={() => store.dispatch({
           type: 'DISLIKE',
           id: props.state.id
-        })}>Dislike</button>
+        })} style={buttonStyling}>Dislike</button>
       :
-        <button disabled>Dislike</button>
+        <button disabled style={buttonStyling}>Dislike</button>
       }
       {
-        (!props.state.bookmark) ?
+        (!props.state.bookmarked) ?
           <button onClick={() => store.dispatch({
             type: 'BOOKMARK',
             id: props.state.id
-          })}>Bookmark</button>
+          })} style={buttonStyling}>Bookmark</button>
         :
           <button onClick={() => store.dispatch({
             type: 'REMOVE BOOKMARK',
             id: props.state.id
-          })}>Remove Bookmark</button>
+          })} style={buttonStyling}>Remove Bookmark</button>
         }
   </div>
 )
@@ -216,7 +223,9 @@ class NewsComponent extends React.Component {
                     <button onClick={() => store.dispatch({
                       type: 'REMOVE BOOKMARK',
                       id: this.props.id
-                    })}>Remove Bookmark</button>
+                    })} style={{
+                      borderRadius: "10px"
+                    }}>Remove Bookmark</button>
                   }
               </div>
           </div>
