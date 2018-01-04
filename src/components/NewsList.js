@@ -2,11 +2,12 @@ import React from 'react';
 import NewsComponent from './NewsComponent';
 import Header from './Header';
 import { connect } from 'react-redux';
+import styles from '../styles/NewsListStyles.css';
 
 const NewsList = ({news}) => (
   <div>
     <Header showArrow="false" width="100%"/>
-    <ul>
+    <div className={styles.grid_model}>
     {
       news.map(d =>
         <NewsComponent
@@ -20,7 +21,7 @@ const NewsList = ({news}) => (
           imageUrl = { d.imageUrl } />
         )
       }
-      </ul>
+      </div>
     </div>
 )
 

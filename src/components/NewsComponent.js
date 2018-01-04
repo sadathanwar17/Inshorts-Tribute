@@ -20,6 +20,7 @@ class NewsComponent extends React.Component {
   render() {
     return (
       <div className={styles.display_horizontal}>
+        <h4 className={styles.heading}> { this.props.title } </h4>
         <NavLink to={"/" + this.props.id} activeClassName={styles.disableDecoration} className={styles.disableDecoration}>
           <div className={styles.div_padding}>
             <img src={ this.imageUrl } width="350px" height="250px" className={styles.image_styles}/>
@@ -27,7 +28,6 @@ class NewsComponent extends React.Component {
         </NavLink>
         <div className={styles.display_vertical}>
           <NavLink to={"/" + this.props.id} activeClassName={styles.disableDecoration} className={styles.disableDecoration}>
-            <h4> { this.props.title } </h4>
             <p> { this.description } </p>
             </NavLink>
             <div className={styles.display_vertical}>

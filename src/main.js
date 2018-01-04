@@ -47,6 +47,46 @@ const dummyData = [
     disliked: false,
     bookmarked: false,
     description: "The discovery of gold's origin in the universe was hailed by many as 'scientific breakthrough' of the year. NASA's $3.9-billion Cassini became the first man-made object to go between Saturn and its rings, while astronomers detected the first interstellar object visiting our solar system. Further, scientists discovered a new organ inside the human body and also identified the appendix's function."
+  },
+  {
+    id: 4,
+    imageUrl: "http://images.newsinshorts.com.edgesuite.net/app_assets/images/2017/30dec/inshorts_image_1514612335174_659.jpg?resize=",
+    title: "What were the major scientific discoveries, events of 2017?",
+    author: "Gaurav Shroff",
+    liked: false,
+    disliked: false,
+    bookmarked: false,
+    description: "The discovery of gold's origin in the universe was hailed by many as 'scientific breakthrough' of the year. NASA's $3.9-billion Cassini became the first man-made object to go between Saturn and its rings, while astronomers detected the first interstellar object visiting our solar system. Further, scientists discovered a new organ inside the human body and also identified the appendix's function."
+  },
+  {
+    id: 5,
+    imageUrl: "http://images.newsinshorts.com.edgesuite.net/app_assets/images/2017/30dec/inshorts_image_1514612335174_659.jpg?resize=",
+    title: "What were the major scientific discoveries, events of 2017?",
+    author: "Gaurav Shroff",
+    liked: false,
+    disliked: false,
+    bookmarked: false,
+    description: "The discovery of gold's origin in the universe was hailed by many as 'scientific breakthrough' of the year. NASA's $3.9-billion Cassini became the first man-made object to go between Saturn and its rings, while astronomers detected the first interstellar object visiting our solar system. Further, scientists discovered a new organ inside the human body and also identified the appendix's function."
+  },
+  {
+    id: 6,
+    imageUrl: "http://images.newsinshorts.com.edgesuite.net/app_assets/images/2017/30dec/inshorts_image_1514612335174_659.jpg?resize=",
+    title: "What were the major scientific discoveries, events of 2017?",
+    author: "Gaurav Shroff",
+    liked: false,
+    disliked: false,
+    bookmarked: false,
+    description: "The discovery of gold's origin in the universe was hailed by many as 'scientific breakthrough' of the year. NASA's $3.9-billion Cassini became the first man-made object to go between Saturn and its rings, while astronomers detected the first interstellar object visiting our solar system. Further, scientists discovered a new organ inside the human body and also identified the appendix's function."
+  },
+  {
+    id: 7,
+    imageUrl: "http://images.newsinshorts.com.edgesuite.net/app_assets/images/2017/30dec/inshorts_image_1514612335174_659.jpg?resize=",
+    title: "What were the major scientific discoveries, events of 2017?",
+    author: "Gaurav Shroff",
+    liked: false,
+    disliked: false,
+    bookmarked: false,
+    description: "The discovery of gold's origin in the universe was hailed by many as 'scientific breakthrough' of the year. NASA's $3.9-billion Cassini became the first man-made object to go between Saturn and its rings, while astronomers detected the first interstellar object visiting our solar system. Further, scientists discovered a new organ inside the human body and also identified the appendix's function."
   }
 ];
 
